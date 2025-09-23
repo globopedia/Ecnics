@@ -61,28 +61,28 @@
 
     function bucketCompetencia(torneo) {
     const t = (torneo || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
-      if (t.includes("Apertura 2007") || t.includes("Clausura 2008")) return "Temporada 2007/08";
-      if (t.includes("Apertura 2008") || t.includes("Clausura 2009")) return "Temporada 2008/09";
-      if (t.includes("Apertura 2009") || t.includes("Clausura 2010")) return "Temporada 2009/10";
-      if (t.includes("Apertura 2010") || t.includes("Clausura 2011") || t.includes("Campeonato 10/11")) return "Temporada 2010/11";
-      if (t.includes("Nacional B 11/12") || t.includes("Copa Argentina 11/12")) return "Temporada 2011/12";
-      if (t.includes("Nacional B 12/13") || t.includes("Copa Argentina 12/13")) return "Temporada 2012/13";
-      if (t.includes("Nacional B 13/14") || t.includes("Copa Argentina 13/14")) return "Temporada 2013/14";
-      if (t.includes("Nacional B 2014")) return "Temporada 2014";
-      if (t.includes("Campeonato 2015") || t.includes("Copa Argentina 2015") || t.includes("Supercopa 2015") || t.includes("Libertadores 2015") || t.includes("Sudamericana 2015")) return "Temporada 2015";
-      if (t.includes("Campeonato 2016") || t.includes("Copa Argentina 2016") || t.includes("Libertadores 2016")) return "Temporada 2016";
-      if (t.includes("Campeonato 16/17") || t.includes("Copa Argentina 16/17") || t.includes("Sudamericana 2017")) return "Temporada 2016/17";
-      if (t.includes("SAF 17/18") || t.includes("Copa Argentina 17-18")) return "Temporada 2017/18";
-      if (t.includes("SAF 18/19") || t.includes("Superliga 2019") || t.includes("Copa Argentina 18/19") || t.includes("Libertadores 2019")) return "Temporada 2018/19";
-      if (t.includes("SAF 19/20") || t.includes("Superliga 2020") || t.includes("Copa Argentina 19/20") || t.includes("Copa Maradona 2020") || t.includes("Sudamericana 2020")) return "Temporada 2019/20";
-      if (t.includes("LPF 2021")) return "Temporada 2021";
-      if (t.includes("LPF 2022") || t.includes("Copa Argentina 2022")) return "Temporada 2022";
-      if (t.includes("LPF 2023") || t.includes("Copa Argentina 2023") || t.includes("Libertadores 2023") || t.includes("Libertadores 2023")) return "Temporada 2023";
-      if (t.includes("LPF 2024") || t.includes("Copa Argentina 2024")) return "Temporada 2024";
-      if (t.includes("LPF 2025") || t.includes("Copa Argentina 2025") || t.includes("Sudamericana 2025")) return "Temporada 2025";
-      if (t.includes("amistoso")) return "Amistosos";
-      return "Otros";
-    }
+   if (t.includes("apertura 2007") || t.includes("clausura 2008")) return "Temporada 2007/08";
+  if (t.includes("apertura 2008") || t.includes("clausura 2009")) return "Temporada 2008/09";
+  if (t.includes("apertura 2009") || t.includes("clausura 2010")) return "Temporada 2009/10";
+  if (t.includes("apertura 2010") || t.includes("clausura 2011") || t.includes("campeonato 10/11")) return "Temporada 2010/11";
+  if (t.includes("nacional b 11/12") || t.includes("copa argentina 11/12")) return "Temporada 2011/12";
+  if (t.includes("nacional b 12/13") || t.includes("copa argentina 12/13")) return "Temporada 2012/13";
+  if (t.includes("nacional b 13/14") || t.includes("copa argentina 13/14")) return "Temporada 2013/14";
+  if (t.includes("nacional b 2014")) return "Temporada 2014";
+  if (t.includes("campeonato 2015") || t.includes("copa argentina 2015") || t.includes("supercopa 2015") || t.includes("libertadores 2015") || t.includes("sudamericana 2015")) return "Temporada 2015";
+  if (t.includes("campeonato 2016") || t.includes("copa argentina 2016") || t.includes("libertadores 2016")) return "Temporada 2016";
+  if (t.includes("campeonato 16/17") || t.includes("copa argentina 16/17") || t.includes("sudamericana 2017")) return "Temporada 2016/17";
+  if (t.includes("saf 17/18") || t.includes("copa argentina 17-18")) return "Temporada 2017/18";
+  if (t.includes("saf 18/19") || t.includes("superliga 2019") || t.includes("copa argentina 18/19") || t.includes("libertadores 2019")) return "Temporada 2018/19";
+  if (t.includes("saf 19/20") || t.includes("superliga 2020") || t.includes("copa argentina 19/20") || t.includes("copa maradona 2020") || t.includes("sudamericana 2020")) return "Temporada 2019/20";
+  if (t.includes("lpf 2021")) return "Temporada 2021";
+  if (t.includes("lpf 2022") || t.includes("copa argentina 2022")) return "Temporada 2022";
+  if (t.includes("lpf 2023") || t.includes("copa argentina 2023") || t.includes("libertadores 2023")) return "Temporada 2023";
+  if (t.includes("lpf 2024") || t.includes("copa argentina 2024")) return "Temporada 2024";
+  if (t.includes("lpf 2025") || t.includes("copa argentina 2025") || t.includes("sudamericana 2025")) return "Temporada 2025";
+  if (t.includes("amistoso")) return "Amistosos";
+  return "Otros";
+}
 
     const ORDEN_COMPETENCIAS = ["Temporada 2007/08","Temporada 2008/09","Temporada 2009/10","Temporada 2010/11","Temporada 2011/12","Temporada 2012/13","Temporada 2013/14","Temporada 2014","Temporada 2015","Temporada 2016","Temporada 2016/17","Temporada 2017/18","Temporada 2018/19","Temporada 2019/20","Temporada 2021","Temporada 2022","Temporada 2023","Temporada 2024","Temporada 2025","Amistosos","Otros"];
     const CONDICIONES = ["Local","Neutral","Visitante"];
