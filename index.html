@@ -135,7 +135,7 @@
       const sel = document.getElementById("tecnicoSelect");
       sel.innerHTML = "<option value=''>-- Seleccionar --</option>";
       tecnicos.forEach(a => {
-        if (a.id && a.nombre) {
+        if (a.id && a.tecnico) {
           const opt = document.createElement("option");
           opt.value = a.id;
           opt.textContent = invertirNombre(a.nombre);
