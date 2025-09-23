@@ -42,17 +42,17 @@
 
   <div style="text-align:center;">
     <label>Seleccioná técnico: </label>
-    <select id="arbitroSelect"></select>
+    <select id="tecnicoSelect"></select>
   </div>
 
-  <div id="arbitroInfo" class="club-card" style="display:none;"></div>
+  <div id="tecnicoInfo" class="club-card" style="display:none;"></div>
 
   <script>
     // URLs (cache buster)
-    const arbitrosURL = "https://globopedia.github.io/Ecnics/Ecnics.csv?v=" + Date.now();
+    const tecnicosURL = "https://globopedia.github.io/Ecnics/Ecnics.csv?v=" + Date.now();
     const partidosURL = "https://globopedia.github.io/buscador-partidos/Encuentros_Huracan.csv?v=" + Date.now();
 
-    let arbitros = [];
+    let tecnicos = [];
     let encuentros = [];
 
     // Utilidades
@@ -90,11 +90,11 @@
 
     // Carga de CSVs
     Promise.all([
-      fetch(arbitrosURL).then(r => { if(!r.ok) throw new Error("Ecnics CSV no disponible"); return r.text(); }),
+      fetch(tecnicosURL).then(r => { if(!r.ok) throw new Error("Ecnics CSV no disponible"); return r.text(); }),
       fetch(partidosURL).then(r => { if(!r.ok) throw new Error("Partidos CSV no disponible"); return r.text(); })
     ])
     .then(([csvEcnics, csvPartidos]) => {
-      // Ajustar columnas según tu CSV: ID, Árbitro, Datos (tal como me pasaste)
+      // Ajustar columnas según tu CSV: ID, Técnico, Datos, etc, etc
       tecnicos = Papa.parse(csvEcnics, { header:true, skipEmptyLines:true }).data.map(c => ({
         id: (c.ID ?? "").toString().trim(),
         nombre: (c["Técnico"] ?? "").toString().trim(),
@@ -122,7 +122,7 @@
         Incidencias: (p.Incidencias ?? "").trim()
       }));
 
-      llenarSelectArbitros();
+      llenarSelectTecnicos();
     })
     .catch(err => {
       console.error("Error cargando CSVs:", err);
@@ -130,10 +130,10 @@
     });
 
     // Mostrar apellido, nombre en el select (usa invertirNombre)
-    function llenarSelectArbitros() {
-      const sel = document.getElementById("arbitroSelect");
+    function llenarSelectTecnicos() {
+      const sel = document.getElementById("tecnicoSelect");
       sel.innerHTML = "<option value=''>-- Seleccionar --</option>";
-      arbitros.forEach(a => {
+      tecnicos.forEach(a => {
         if (a.id && a.nombre) {
           const opt = document.createElement("option");
           opt.value = a.id;
@@ -141,38 +141,38 @@
           sel.appendChild(opt);
         }
       });
-      sel.addEventListener("change", mostrarArbitro);
+      sel.addEventListener("change", mostrarTecnico);
     }
 
-    // Al seleccionar árbitro: mostrar datos + estadísticas
-    function mostrarArbitro() {
-      const arbitroId = document.getElementById("arbitroSelect").value;
-      const arbitro = arbitros.find(a => (a.id||"").trim() === (arbitroId||"").trim());
-      if (!arbitro) {
-        document.getElementById("arbitroInfo").style.display = "none";
+    // Al seleccionar técnico: mostrar datos + estadísticas
+    function mostrarTecnico() {
+      const tecnicoId = document.getElementById("tecnicoSelect").value;
+      const tecnico = tecnicos.find(a => (a.id||"").trim() === (tecnicoId||"").trim());
+      if (!tecnico) {
+        document.getElementById("tecnicoInfo").style.display = "none";
         return;
       }
 
-      const cont = document.getElementById("arbitroInfo");
+      const cont = document.getElementById("tecnicoInfo");
       cont.style.display = "block";
       cont.innerHTML = `
         <div class="club-header">
-          ${arbitro.foto ? `<img src="${arbitro.foto}" alt="${arbitro.nombre}" style="width:70px;height:70px;object-fit:cover;border-radius:8px;">` : ""}
-          <h2>${arbitro.nombre}</h2>
+          ${tecnico.foto ? `<img src="${tecnico.foto}" alt="${tecnico.nombre}" style="width:70px;height:70px;object-fit:cover;border-radius:8px;">` : ""}
+          <h2>${tecnico.nombre}</h2>
         </div>
-        <p><b>Datos:</b> ${arbitro.datos}</p>
+        <p><b>Datos:</b> ${tecnico.datos}</p>
         <div class="stats">
-          <h3 style="color:#FF0000;">📊 Partidos arbitrados a Huracán</h3>
-          ${renderEstadisticas(arbitro.nombre)}
+          <h3 style="color:#FF0000;">📊 Partidos dirigidos en Huracán</h3>
+          ${renderEstadisticas(tecnico.nombre)}
         </div>
       `;
     }
 
     // Render estadisticas por competencia y condición (genera checkboxes)
-    function renderEstadisticas(nombreArbitro) {
-      const delArbitro = encuentros.filter(p => norm(p.Árbitro) === norm(nombreArbitro));
+    function renderEstadisticas(nombreTecnico) {
+      const delTecnico = encuentros.filter(p => norm(p.Técnico) === norm(nombreTecnico));
       const agg = {};
-      for (const e of delArbitro) {
+      for (const e of delTecnico) {
         const comp = bucketCompetencia(e.Torneo);
         const cond = cap(norm(e.Condición));
         const sit = cap(norm(e.Situación));
@@ -198,7 +198,7 @@
               bloque += `
                 <li>
                   <label>
-                    <input type="checkbox" class="chkPartidos" data-comp="${comp}" data-cond="${cond}" data-sit="${tipo}" data-arbitro="${nombreArbitro}">
+                    <input type="checkbox" class="chkPartidos" data-comp="${comp}" data-cond="${cond}" data-sit="${tipo}" data-tecnico="${nombreTecnico}">
                     ${icono} ${tipo}s: ${cantidad}
                   </label>
                   <div class="partidos-lista" style="display:none; margin-left:20px;"></div>
@@ -228,9 +228,9 @@
       const contenedor = e.target.closest("li").querySelector(".partidos-lista");
       contenedor.innerHTML = "";
       if (e.target.checked) {
-        const { comp, cond, sit, arbitro } = e.target.dataset;
+        const { comp, cond, sit, tecnico } = e.target.dataset;
         const partidos = encuentros.filter(p =>
-          norm(p.Árbitro) === norm(arbitro) &&
+          norm(p.Técnico) === norm(tecnico) &&
           bucketCompetencia(p.Torneo) === comp &&
           cap(norm(p.Condición)) === cond &&
           cap(norm(p.Situación)) === sit
