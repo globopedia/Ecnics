@@ -48,63 +48,59 @@
   <div id="tecnicoInfo" class="club-card" style="display:none;"></div>
 
   <script>
-    // URLs (cache buster)
     const tecnicosURL = "https://globopedia.github.io/Ecnics/Ecnics.csv?v=" + Date.now();
     const partidosURL = "https://globopedia.github.io/buscador-partidos/Encuentros_Huracan.csv?v=" + Date.now();
 
     let tecnicos = [];
     let encuentros = [];
 
-    // Utilidades
     const norm = (t) => (t || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
     const cap = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : s;
-
-    function bucketCompetencia(torneo) {
-    const t = (torneo || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
-   if (t.includes("apertura 2007") || t.includes("clausura 2008")) return "Temporada 2007/08";
-  if (t.includes("apertura 2008") || t.includes("clausura 2009")) return "Temporada 2008/09";
-  if (t.includes("apertura 2009") || t.includes("clausura 2010")) return "Temporada 2009/10";
-  if (t.includes("apertura 2010") || t.includes("clausura 2011") || t.includes("campeonato 10/11")) return "Temporada 2010/11";
-  if (t.includes("nacional b 11/12") || t.includes("copa argentina 11/12")) return "Temporada 2011/12";
-  if (t.includes("nacional b 12/13") || t.includes("copa argentina 12/13")) return "Temporada 2012/13";
-  if (t.includes("nacional b 13/14") || t.includes("copa argentina 13/14")) return "Temporada 2013/14";
-  if (t.includes("nacional b 2014")) return "Temporada 2014";
-  if (t.includes("campeonato 2015") || t.includes("copa argentina 2015") || t.includes("supercopa 2015") || t.includes("libertadores 2015") || t.includes("sudamericana 2015")) return "Temporada 2015";
-  if (t.includes("campeonato 2016") || t.includes("copa argentina 2016") || t.includes("libertadores 2016")) return "Temporada 2016";
-  if (t.includes("campeonato 16/17") || t.includes("copa argentina 16/17") || t.includes("sudamericana 2017")) return "Temporada 2016/17";
-  if (t.includes("saf 17/18") || t.includes("copa argentina 17-18")) return "Temporada 2017/18";
-  if (t.includes("saf 18/19") || t.includes("superliga 2019") || t.includes("copa argentina 18/19") || t.includes("libertadores 2019")) return "Temporada 2018/19";
-  if (t.includes("saf 19/20") || t.includes("superliga 2020") || t.includes("copa argentina 19/20") || t.includes("copa maradona 2020") || t.includes("sudamericana 2020")) return "Temporada 2019/20";
-  if (t.includes("lpf 2021")) return "Temporada 2021";
-  if (t.includes("lpf 2022") || t.includes("copa argentina 2022")) return "Temporada 2022";
-  if (t.includes("lpf 2023") || t.includes("copa argentina 2023") || t.includes("libertadores 2023") || t.includes("sudamericana 2023")) return "Temporada 2023";
-  if (t.includes("lpf 2024") || t.includes("copa argentina 2024")) return "Temporada 2024";
-  if (t.includes("lpf 2025") || t.includes("copa argentina 2025") || t.includes("sudamericana 2025")) return "Temporada 2025";
-  if (t.includes("amistoso")) return "Amistosos";
-  return "Otros";
-}
 
     const ORDEN_COMPETENCIAS = ["Temporada 2007/08","Temporada 2008/09","Temporada 2009/10","Temporada 2010/11","Temporada 2011/12","Temporada 2012/13","Temporada 2013/14","Temporada 2014","Temporada 2015","Temporada 2016","Temporada 2016/17","Temporada 2017/18","Temporada 2018/19","Temporada 2019/20","Temporada 2021","Temporada 2022","Temporada 2023","Temporada 2024","Temporada 2025","Amistosos","Otros"];
     const CONDICIONES = ["Local","Neutral","Visitante"];
     const SITUACIONES = ["Victoria","Empate","Derrota"];
 
-    // Carga de CSVs
+    function bucketCompetencia(torneo) {
+      const t = norm(torneo || "");
+      if (t.includes("apertura 2007") || t.includes("clausura 2008")) return "Temporada 2007/08";
+      if (t.includes("apertura 2008") || t.includes("clausura 2009")) return "Temporada 2008/09";
+      if (t.includes("apertura 2009") || t.includes("clausura 2010")) return "Temporada 2009/10";
+      if (t.includes("apertura 2010") || t.includes("clausura 2011") || t.includes("campeonato 10/11")) return "Temporada 2010/11";
+      if (t.includes("nacional b 11/12") || t.includes("copa argentina 11/12")) return "Temporada 2011/12";
+      if (t.includes("nacional b 12/13") || t.includes("copa argentina 12/13")) return "Temporada 2012/13";
+      if (t.includes("nacional b 13/14") || t.includes("copa argentina 13/14")) return "Temporada 2013/14";
+      if (t.includes("nacional b 2014")) return "Temporada 2014";
+      if (t.includes("campeonato 2015") || t.includes("copa argentina 2015") || t.includes("supercopa 2015") || t.includes("libertadores 2015") || t.includes("sudamericana 2015")) return "Temporada 2015";
+      if (t.includes("campeonato 2016") || t.includes("copa argentina 2016") || t.includes("libertadores 2016")) return "Temporada 2016";
+      if (t.includes("campeonato 16/17") || t.includes("copa argentina 16/17") || t.includes("sudamericana 2017")) return "Temporada 2016/17";
+      if (t.includes("saf 17/18") || t.includes("copa argentina 17-18")) return "Temporada 2017/18";
+      if (t.includes("saf 18/19") || t.includes("superliga 2019") || t.includes("copa argentina 18/19") || t.includes("libertadores 2019")) return "Temporada 2018/19";
+      if (t.includes("saf 19/20") || t.includes("superliga 2020") || t.includes("copa argentina 19/20") || t.includes("copa maradona 2020") || t.includes("sudamericana 2020")) return "Temporada 2019/20";
+      if (t.includes("lpf 2021")) return "Temporada 2021";
+      if (t.includes("lpf 2022") || t.includes("copa argentina 2022")) return "Temporada 2022";
+      if (t.includes("lpf 2023") || t.includes("copa argentina 2023") || t.includes("libertadores 2023") || t.includes("sudamericana 2023")) return "Temporada 2023";
+      if (t.includes("lpf 2024") || t.includes("copa argentina 2024")) return "Temporada 2024";
+      if (t.includes("lpf 2025") || t.includes("copa argentina 2025") || t.includes("sudamericana 2025")) return "Temporada 2025";
+      if (t.includes("amistoso")) return "Amistosos";
+      return "Otros";
+    }
+
     Promise.all([
-      fetch(tecnicosURL).then(r => { if(!r.ok) throw new Error("Ecnics CSV no disponible"); return r.text(); }),
-      fetch(partidosURL).then(r => { if(!r.ok) throw new Error("Partidos CSV no disponible"); return r.text(); })
+      fetch(tecnicosURL).then(r => r.text()),
+      fetch(partidosURL).then(r => r.text())
     ])
     .then(([csvEcnics, csvPartidos]) => {
-      // Ajustar columnas según tu CSV: ID, Técnico, Datos, etc, etc
       tecnicos = Papa.parse(csvEcnics, { header:true, skipEmptyLines:true }).data.map(c => ({
         id: (c.ID ?? "").toString().trim(),
-        técnico: (c["Técnico"] ?? "").toString().trim(),
+        tecnico: (c["Técnico"] ?? "").toString().trim(),
         nombre: (c.Nombre ?? "").toString().trim(),
         nacimiento: (c.Nacimiento ?? "").toString().trim(),
         lugar: (c.Lugar ?? "").toString().trim(),
         trayectoria: (c.Trayectoria ?? "").toString().trim(),
         muerte: (c.Muerte ?? "").toString().trim(),
         biografía: (c.Biografía ?? "").toString().trim(),
-        foto: (c.Foto ?? c.foto ?? "").toString().trim()
+        foto: (c.Foto ?? "").toString().trim()
       }));
 
       encuentros = Papa.parse(csvPartidos, { header:true, skipEmptyLines:true }).data.map(p => ({
@@ -124,31 +120,25 @@
       }));
 
       llenarSelectTecnicos();
-    })
-    .catch(err => {
-      console.error("Error cargando CSVs:", err);
-      alert("No pude cargar los CSV. Revisá las URLs o el formato en la consola.");
     });
 
-// Mostrar apellido, nombre en el select (usa invertirNombre)
     function llenarSelectTecnicos() {
       const sel = document.getElementById("tecnicoSelect");
       sel.innerHTML = "<option value=''>-- Seleccionar --</option>";
       tecnicos.forEach(a => {
-        if (a.id && a.nombre) {
+        if (a.tecnico) {
           const opt = document.createElement("option");
-          opt.value = a.id;
-          opt.textContent = invertirNombre(a.nombre);
+          opt.value = a.tecnico;
+          opt.textContent = a.tecnico;
           sel.appendChild(opt);
         }
-       });
+      });
       sel.addEventListener("change", mostrarTecnico);
     }
 
-    // Al seleccionar técnico: mostrar datos + estadísticas
     function mostrarTecnico() {
       const tecnicoId = document.getElementById("tecnicoSelect").value;
-      const tecnico = tecnicos.find(a => (a.id||"").trim() === (tecnicoId||"").trim());
+      const tecnico = tecnicos.find(a => a.tecnico === tecnicoId);
       if (!tecnico) {
         document.getElementById("tecnicoInfo").style.display = "none";
         return;
@@ -158,10 +148,10 @@
       cont.style.display = "block";
       cont.innerHTML = `
         <div class="club-header">
-          ${tecnico.foto ? `<img src="${tecnico.foto}" alt="${tecnico.nombre}" style="width:70px;height:70px;object-fit:cover;border-radius:8px;">` : ""}
-          <h2>${tecnico.nombre}</h2>
+          ${tecnico.foto ? `<img src="${tecnico.foto}" alt="${tecnico.tecnico}" style="width:70px;height:70px;object-fit:cover;border-radius:8px;">` : ""}
+          <h2>${tecnico.tecnico}</h2>
         </div>
-        <p><b>Nombre:</b> ${tecnico.nombre}</p>
+        <p><b>Nombre completo:</b> ${tecnico.nombre}</p>
         <p><b>Nacimiento:</b> ${tecnico.nacimiento}</p>
         <p><b>Lugar:</b> ${tecnico.lugar}</p>
         <p><b>Trayectoria:</b> ${tecnico.trayectoria}</p>
@@ -169,12 +159,11 @@
         <p><b>Biografía:</b> ${tecnico.biografía}</p>
         <div class="stats">
           <h3 style="color:#FF0000;">📊 Partidos dirigidos en Huracán</h3>
-          ${renderEstadisticas(tecnico.nombre)}
+          ${renderEstadisticas(tecnico.tecnico)}
         </div>
       `;
     }
 
-    // Render estadisticas por competencia y condición (genera checkboxes)
     function renderEstadisticas(nombreTecnico) {
       const delTecnico = encuentros.filter(p => norm(p.Técnico) === norm(nombreTecnico));
       const agg = {};
@@ -228,7 +217,6 @@
       return html || "<p>Sin datos disponibles</p>";
     }
 
-    // Manejador de checkboxes: muestra la lista de partidos según filtro
     document.addEventListener("change", function(e) {
       if (!e.target.classList.contains("chkPartidos")) return;
       const contenedor = e.target.closest("li").querySelector(".partidos-lista");
@@ -244,7 +232,6 @@
         if (partidos.length) {
           partidos.forEach(p => {
             let bloqueHTML = "";
-            // Si Huracán fue visitante, lo mostramos en segundo lugar (resultado2)
             if ((p.Condición || "").toLowerCase() === "visitante") {
               bloqueHTML = `
                 <div class="partido-card">
@@ -255,25 +242,15 @@
                     <div class="resultado1-box">${p.Resultado1}</div>
                     <img class="escudo-huracan" src="${getEscudo('Huracán')}" alt="Huracán">
                   </div>
-                  <div style="margin-top:6px;"><b>${p.Torneo}</b></div>
+                  <div><b>${p.Torneo}</b></div>
                   <div><b>Estadio:</b> ${p.Estadio} - <b>Árbitro:</b> ${p.Árbitro}</div>
-                  <div style="margin-top:6px;">
-                    ${ p.Estadio && getEstadioImage(p.Estadio)
-                      ? `<img src="${getEstadioImage(p.Estadio)}" alt="${p.Estadio}" style="max-height:40px; display:block; margin:4px auto;">`
-                      : "" }
-                  </div>
-                  <div style="margin-top:6px;"><b>${p.Club}:</b> ${p.Rival}</div>
+                  <div>${ p.Estadio && getEstadioImage(p.Estadio) ? `<img src="${getEstadioImage(p.Estadio)}" style="max-height:40px;">` : "" }</div>
+                  <div><b>${p.Club}:</b> ${p.Rival}</div>
                   <div><b>Huracán:</b> ${p.Huracán}</div>
-                  <div style="margin-top:6px;">
-                    ${ p.Estadio && getEstadioImage(p.Estadio)
-                      ? `<img src="${getEstadioImage(p.Estadio)}" alt="${p.Estadio}" style="max-height:40px;">`
-                      : `<b>Incidencias:</b>` }
-                    ${renderIncidencias(p.Incidencias)}
-                  </div>
+                  <div>${ p.Estadio && getEstadioImage(p.Estadio) ? `<img src="${getEstadioImage(p.Estadio)}" style="max-height:40px;">` : "<b>Incidencias:</b>" } ${renderIncidencias(p.Incidencias)}</div>
                 </div>
               `;
             } else {
-              // Huracán local (o neutral) — Huracán a la izquierda / primero
               bloqueHTML = `
                 <div class="partido-card">
                   ${getTorneoImage(p.Torneo)}
@@ -283,21 +260,12 @@
                     <div class="resultado2-box">${p.Resultado2}</div>
                     <img class="escudo-rival" src="${getEscudo(p.Club)}" alt="${p.Club}" />
                   </div>
-                  <div style="margin-top:6px;"><b>${p.Torneo}</b></div>
+                  <div><b>${p.Torneo}</b></div>
                   <div><b>Estadio:</b> ${p.Estadio} - <b>Árbitro:</b> ${p.Árbitro}</div>
-                  <div style="margin-top:6px;">
-                    ${ p.Estadio && getEstadioImage(p.Estadio)
-                      ? `<img src="${getEstadioImage(p.Estadio)}" alt="${p.Estadio}" style="max-height:40px; display:block; margin:4px auto;">`
-                      : "" }
-                  </div>
-                  <div style="margin-top:6px;"><b>Huracán:</b> ${p.Huracán}</div>
+                  <div>${ p.Estadio && getEstadioImage(p.Estadio) ? `<img src="${getEstadioImage(p.Estadio)}" style="max-height:40px;">` : "" }</div>
+                  <div><b>Huracán:</b> ${p.Huracán}</div>
                   <div><b>${p.Club}:</b> ${p.Rival}</div>
-                  <div style="margin-top:6px;">
-                    ${ p.Estadio && getEstadioImage(p.Estadio)
-                      ? `<img src="${getEstadioImage(p.Estadio)}" alt="${p.Estadio}" style="max-height:40px;">`
-                      : `<b>Incidencias:</b>` }
-                    ${renderIncidencias(p.Incidencias)}
-                  </div>
+                  <div>${ p.Estadio && getEstadioImage(p.Estadio) ? `<img src="${getEstadioImage(p.Estadio)}" style="max-height:40px;">` : "<b>Incidencias:</b>" } ${renderIncidencias(p.Incidencias)}</div>
                 </div>
               `;
             }
@@ -318,7 +286,6 @@
       }
     });
 
-    // Toggle acordeón
     document.addEventListener("click", function(e) {
       if (e.target.classList.contains("acordeon-header")) {
         const body = e.target.nextElementSibling;
@@ -327,46 +294,31 @@
       }
     });
 
-    // --- Funciones auxiliares que recuperan el formato original ---
-
-    // Intenta obtener escudo construyendo la URL a la carpeta /escudos/
     function getEscudo(nombreClub) {
       if (!nombreClub) return "";
-      // Primero intentamos con encoding (preserva acentos si los archivos están así)
       try {
-        const file = encodeURIComponent(nombreClub.trim()) + ".png";
-        return "https://globopedia.github.io/buscador-partidos/escudos/" + file;
+        return "https://globopedia.github.io/buscador-partidos/escudos/" + encodeURIComponent(nombreClub.trim()) + ".png";
       } catch (err) {
-        // Fallback: eliminar acentos y espacios
-        const fileName = nombreClub
-          .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-          .replace(/\./g, "")
-          .replace(/\s+/g, "") + ".png";
+        const fileName = nombreClub.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\./g, "").replace(/\s+/g, "") + ".png";
         return "https://globopedia.github.io/buscador-partidos/escudos/" + fileName;
       }
     }
 
-    // Reemplaza tags de incidencias por iconos (GOL, EXP, ATA, PEN)
     function renderIncidencias(texto) {
       if (!texto) return "";
       return texto
-        .replace(/GOL/g, "<img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgi3GyVjBR-e_IN4mWVAuZofChVOj763GApXwzanoEJDUTysF1K9gf3N5qBCoDJ-ahi8wRkrZ3FCbl0ovTEjXyjFjFEWYF1MZ7YvHrq0bD5eQ7GsJPOkpLSC-k4zpZ1CbnyKVtoYlb6JWXByKkd0VAHuN1hy8P9LBz2fhn5e3Um_X-m4U9WLo9pQP428Fj4/s320/GolR.png' alt='gol' style='width:20px;height:20px;margin-left:6px;'>")
-        .replace(/EXP/g, "<img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgx8a6PCkGhKR9WTnh2NNWLMBDOIKWsNisSChpxN2NayjM5Z6YBIZmv52PvduZawIBBh_g5Pq56LdvjG8X1gSCud2q6NYS_NGOh7nAPaxUy_nC1YCcZJOgy2DeTZPRkqRgb1_HbpJshh-7o3MoW8Z3h8tBa8UZ153n5CzriOyvsSIxM6FsCbn-n115KC5Ln/s320/Roja.png' alt='expulsión' style='width:20px;height:20px;margin-left:6px;'>")
-        .replace(/ATA/g, "<img src='https://blogger.googleusercontent.com/img/a/AVvXsEjygOwijhQ1dRIh6BPFrQu7EKOUShS0RLEVmPhCJSANGWOaNzvVmcbV03ZW0ZF5Npefl5r3P8iU6WjXRaSL80QYazspsJ4-nzA8pv4FqBwgu1Jr0wDw2iEPMvnVgK0nvRLeZmGYuVW8epSVTyyND28aoQRd9wD9yxKJWBuPOhOoVz-cUgpbM702W2ZlpsF7=w95-h79' alt='golh' style='width:20px;height:20px;margin-left:6px;'>")
-        .replace(/PEN/g, "<img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEho-erXGKkNZ7MaZWOtZw-ru0AnJwAlzHqnl5fKLmUAn_QtAMAbXgGMsqh21htJ2XSePyqAMAq4Xce1RkwkrqrA4Hw312mYcXhXMVW-m64vRS_lKTNgnBNvCzPZsPV3eEk_QclWiNZ9n9pvAQSiscTyp94vbN_h6aMeQ_nwTdBSdXGn5B3HW3A-sj_4Bw1j/s320/Penales.png' alt='pen' style='width:20px;height:20px;margin-left:6px;'>");
+        .replace(/GOL/g, "<img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgi3GyVjBR-e_IN4mWVAuZofChVOj763GApXwzanoEJDUTysF1K9gf3N5qBCoDJ-ahi8wRkrZ3FCbl0ovTEjXyjFjFEWYF1MZ7YvHrq0bD5eQ7GsJPOkpLSC-k4zpZ1CbnyKVtoYlb6JWXByKkd0VAHuN1hy8P9LBz2fhn5e3Um_X-m4U9WLo9pQP428Fj4/s320/GolR.png' style='width:20px;height:20px;'>")
+        .replace(/EXP/g, "<img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgx8a6PCkGhKR9WTnh2NNWLMBDOIKWsNisSChpxN2NayjM5Z6YBIZmv52PvduZawIBBh_g5Pq56LdvjG8X1gSCud2q6NYS_NGOh7nAPaxUy_nC1YCcZJOgy2DeTZPRkqRgb1_HbpJshh-7o3MoW8Z3h8tBa8UZ153n5CzriOyvsSIxM6FsCbn-n115KC5Ln/s320/Roja.png' style='width:20px;height:20px;'>")
+        .replace(/ATA/g, "<img src='https://blogger.googleusercontent.com/img/a/AVvXsEjygOwijhQ1dRIh6BPFrQu7EKOUShS0RLEVmPhCJSANGWOaNzvVmcbV03ZW0ZF5Npefl5r3P8iU6WjXRaSL80QYazspsJ4-nzA8pv4FqBwgu1Jr0wDw2iEPMvnVgK0nvRLeZmGYuVW8epSVTyyND28aoQRd9wD9yxKJWBuPOhOoVz-cUgpbM702W2ZlpsF7=w95-h79' style='width:20px;height:20px;'>")
+        .replace(/PEN/g, "<img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEho-erXGKkNZ7MaZWOtZw-ru0AnJwAlzHqnl5fKLmUAn_QtAMAbXgGMsqh21htJ2XSePyqAMAq4Xce1RkwkrqrA4Hw312mYcXhXMVW-m64vRS_lKTNgnBNvCzPZsPV3eEk_QclWiNZ9n9pvAQSiscTyp94vbN_h6aMeQ_nwTdBSdXGn5B3HW3A-sj_4Bw1j/s320/Penales.png' style='width:20px;height:20px;'>");
     }
 
-    // Busca imagen de estadio en carpeta Estadios (con limpieza básica del nombre)
     function getEstadioImage(estadio) {
       if (!estadio) return "";
-      const fileName = estadio
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-        .replace(/\./g, "")
-        .replace(/\s+/g, "") + ".png";
+      const fileName = estadio.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\./g, "").replace(/\s+/g, "") + ".png";
       return "https://globopedia.github.io/buscador-partidos/Estadios/" + fileName;
     }
 
-    // Intenta mostrar logo del torneo según una lista conocida
     function getTorneoImage(nombreTorneo) {
       if (!nombreTorneo) return "";
       const texto = nombreTorneo.toLowerCase();
@@ -386,26 +338,11 @@
       ];
       for (const t of torneosDisponibles) {
         if (texto.includes(t.toLowerCase())) {
-          const fileName = encodeURIComponent(t) + ".png";
-          return `<img src="https://globopedia.github.io/buscador-partidos/Torneos/${fileName}" alt="${t}" style="max-height:40px; display:block; margin:4px auto;">`;
+          return `<img src="https://globopedia.github.io/buscador-partidos/Torneos/${encodeURIComponent(t)}.png" style="max-height:40px; display:block; margin:4px auto;">`;
         }
       }
       return "";
     }
-
-    // Invierte "Nombre Apellido (Extra)" -> "Apellido, Nombre (Extra)"
-    function invertirNombre(nombre) {
-      if (!nombre) return "";
-      const match = nombre.match(/^(.*?)\s*\((.*?)\)$/);
-      let base = nombre, extra = "";
-      if (match) { base = match[1]; extra = " (" + match[2] + ")"; }
-      const partes = base.trim().split(" ");
-      if (partes.length < 2) return nombre;
-      const apellido = partes.pop();
-      const nombreSolo = partes.join(" ");
-      return apellido + ", " + nombreSolo + extra;
-    }
-
   </script>
 </body>
 </html>
