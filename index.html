@@ -135,10 +135,10 @@
       const sel = document.getElementById("tecnicoSelect");
       sel.innerHTML = "<option value=''>-- Seleccionar --</option>";
       tecnicos.forEach(a => {
-        if (a.id && a.Nombre) {
+        if (a.id && a.técnico) {
           const opt = document.createElement("option");
           opt.value = a.id;
-          opt.textContent = invertirNombre(a.nombre);
+          opt.textContent = invertirNombre(a.técnico);
           sel.appendChild(opt);
         }
       });
