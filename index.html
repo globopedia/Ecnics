@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Árbitros — Huracán</title>
+  <title>Técnicos — Huracán</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&display=swap" rel="stylesheet">
   <style>
@@ -38,10 +38,10 @@
 </head>
 <body>
   <img src="https://globopedia.github.io/buscador-partidos/logo_globopedia.png" alt="Logo Huracán" class="logo" />
-  <h1>📜 Árbitros</h1>
+  <h1>📜 Técnicos</h1>
 
   <div style="text-align:center;">
-    <label>Seleccionar juez: </label>
+    <label>Seleccioná técnico: </label>
     <select id="arbitroSelect"></select>
   </div>
 
@@ -49,7 +49,7 @@
 
   <script>
     // URLs (cache buster)
-    const arbitrosURL = "https://globopedia.github.io/Rbits/Rbits.csv?v=" + Date.now();
+    const arbitrosURL = "https://globopedia.github.io/Ecnics/Ecnics.csv?v=" + Date.now();
     const partidosURL = "https://globopedia.github.io/buscador-partidos/Encuentros_Huracan.csv?v=" + Date.now();
 
     let arbitros = [];
@@ -61,27 +61,48 @@
 
     function bucketCompetencia(torneo) {
       const t = norm(torneo || "");
-      if (t.includes("libertadores") || t.includes("conmebol") || t.includes("sudamericana")) return "Conmebol";
-      if (t.includes("argentina") || t.includes("superliga") || t.includes("maradona") || t.includes("supercopa") || t.includes("nacional b") || t.includes("b nacional") || t.includes("campeonato")) return "AFA";
+      if (t.includes("Apertura 2007") || t.includes("Clausura 2008")) return "Temporada 2007/08";
+      if (t.includes("Apertura 2008") || t.includes("Clausura 2009")) return "Temporada 2008/09";
+      if (t.includes("Apertura 2009") || t.includes("Clausura 2010")) return "Temporada 2009/10";
+      if (t.includes("Apertura 2010") || t.includes("Clausura 2011") || t.includes("Campeonato 10/11")) return "Temporada 2010/11";
+      if (t.includes("Nacional B 11/12") || t.includes("Copa Argentina 11/12")) return "Temporada 2011/12";
+      if (t.includes("Nacional B 12/13") || t.includes("Copa Argentina 12/13")) return "Temporada 2012/13";
+      if (t.includes("Nacional B 13/14") || t.includes("Copa Argentina 13/14")) return "Temporada 2013/14";
+      if (t.includes("Nacional B 2014")) return "Temporada 2014";
+      if (t.includes("Campeonato 2015") || t.includes("Copa Argentina 2015") || t.includes("Supercopa 2015") || t.includes("Libertadores 2015") || t.includes("Sudamericana 2015")) return "Temporada 2015";
+      if (t.includes("Campeonato 2016") || t.includes("Copa Argentina 2016") || t.includes("Libertadores 2016")) return "Temporada 2016";
+      if (t.includes("Campeonato 16/17") || t.includes("Copa Argentina 16/17") || t.includes("Sudamericana 2017")) return "Temporada 2016/17";
+      if (t.includes("SAF 17/18") || t.includes("Copa Argentina 17-18")) return "Temporada 2017/18";
+      if (t.includes("SAF 18/19") || t.includes("Superliga 2019") || t.includes("Copa Argentina 18/19") || t.includes("Libertadores 2019")) return "Temporada 2018/19";
+      if (t.includes("SAF 19/20") || t.includes("Superliga 2020") || t.includes("Copa Argentina 19/20") || t.includes("Copa Maradona 2020") || t.includes("Sudamericana 2020")) return "Temporada 2019/20";
+      if (t.includes("LPF 2021")) return "Temporada 2021";
+      if (t.includes("LPF 2022") || t.includes("Copa Argentina 2022")) return "Temporada 2022";
+      if (t.includes("LPF 2023") || t.includes("Copa Argentina 2023") || t.includes("Libertadores 2023") || t.includes("Libertadores 2023")) return "Temporada 2023";
+      if (t.includes("LPF 2024") || t.includes("Copa Argentina 2024")) return "Temporada 2024";
+      if (t.includes("LPF 2025") || t.includes("Copa Argentina 2025") || t.includes("Sudamericana 2025")) return "Temporada 2025";
       if (t.includes("amistoso")) return "Amistosos";
       return "Otros";
     }
 
-    const ORDEN_COMPETENCIAS = ["Conmebol","AFA","Amistosos","Otros"];
+    const ORDEN_COMPETENCIAS = ["Temporada 2007/08","Temporada 2008/09","Temporada 2009/10","Temporada 2010/11","Temporada 2011/12","Temporada 2012/13","Temporada 2013/14","Temporada 2014","Temporada 2015","Temporada 2016","Temporada 2016/17","Temporada 2017/18","Temporada 2018/19","Temporada 2019/20","Temporada 2021","Temporada 2022","Temporada 2023","Temporada 2024","Temporada 2025","Amistosos","Otros"];
     const CONDICIONES = ["Local","Neutral","Visitante"];
     const SITUACIONES = ["Victoria","Empate","Derrota"];
 
     // Carga de CSVs
     Promise.all([
-      fetch(arbitrosURL).then(r => { if(!r.ok) throw new Error("Rbits CSV no disponible"); return r.text(); }),
+      fetch(arbitrosURL).then(r => { if(!r.ok) throw new Error("Ecnics CSV no disponible"); return r.text(); }),
       fetch(partidosURL).then(r => { if(!r.ok) throw new Error("Partidos CSV no disponible"); return r.text(); })
     ])
-    .then(([csvRbits, csvPartidos]) => {
+    .then(([csvEcnics, csvPartidos]) => {
       // Ajustar columnas según tu CSV: ID, Árbitro, Datos (tal como me pasaste)
-      arbitros = Papa.parse(csvRbits, { header:true, skipEmptyLines:true }).data.map(c => ({
+      tecnicos = Papa.parse(csvEcnics, { header:true, skipEmptyLines:true }).data.map(c => ({
         id: (c.ID ?? "").toString().trim(),
-        nombre: (c["Árbitro"] ?? "").toString().trim(),
-        datos: (c.Datos ?? "").toString().trim(),
+        nombre: (c["Técnico"] ?? "").toString().trim(),
+        nacimiento: (c.Nacimiento ?? "").toString().trim(),
+        lugar: (c.Lugar ?? "").toString().trim(),
+        trayectoria: (c.Trayectoria ?? "").toString().trim(),
+        muerte: (c.Muerte ?? "").toString().trim(),
+        biografía: (c.Biografía ?? "").toString().trim(),
         foto: (c.Foto ?? c.foto ?? "").toString().trim()
       }));
 
