@@ -130,14 +130,15 @@
       alert("No pude cargar los CSV. Revisá las URLs o el formato en la consola.");
     });
 
-function llenarSelectTecnicos() {
+// Mostrar apellido, nombre en el select (usa invertirNombre)
+    function llenarSelectTecnicos() {
       const sel = document.getElementById("tecnicoSelect");
       sel.innerHTML = "<option value=''>-- Seleccionar --</option>";
       tecnicos.forEach(a => {
-        if (a.tecnico) {
+        if (a.id && a.nombre) {
           const opt = document.createElement("option");
-          opt.value = a.tecnico;
-          opt.textContent = a.tecnico;
+          opt.value = a.id;
+          opt.textContent = invertirNombre(a.nombre);
           sel.appendChild(opt);
         }
        });
