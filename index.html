@@ -60,7 +60,7 @@
     const cap = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : s;
 
     function bucketCompetencia(torneo) {
-      const t = norm(torneo || "");
+    const t = (torneo || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
       if (t.includes("Apertura 2007") || t.includes("Clausura 2008")) return "Temporada 2007/08";
       if (t.includes("Apertura 2008") || t.includes("Clausura 2009")) return "Temporada 2008/09";
       if (t.includes("Apertura 2009") || t.includes("Clausura 2010")) return "Temporada 2009/10";
