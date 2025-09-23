@@ -97,7 +97,8 @@
       // Ajustar columnas según tu CSV: ID, Técnico, Datos, etc, etc
       tecnicos = Papa.parse(csvEcnics, { header:true, skipEmptyLines:true }).data.map(c => ({
         id: (c.ID ?? "").toString().trim(),
-        nombre: (c["Técnico"] ?? "").toString().trim(),
+        técnico: (c["Técnico"] ?? "").toString().trim(),
+        nombre: (c.Nombre ?? "").toString().trim(),
         nacimiento: (c.Nacimiento ?? "").toString().trim(),
         lugar: (c.Lugar ?? "").toString().trim(),
         trayectoria: (c.Trayectoria ?? "").toString().trim(),
@@ -160,6 +161,7 @@
           ${tecnico.foto ? `<img src="${tecnico.foto}" alt="${tecnico.nombre}" style="width:70px;height:70px;object-fit:cover;border-radius:8px;">` : ""}
           <h2>${tecnico.nombre}</h2>
         </div>
+        <p><b>Nombre:</b> ${tecnico.nombre}</p>
         <p><b>Nacimiento:</b> ${tecnico.nacimiento}</p>
         <p><b>Lugar:</b> ${tecnico.lugar}</p>
         <p><b>Trayectoria:</b> ${tecnico.trayectoria}</p>
