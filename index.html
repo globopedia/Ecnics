@@ -37,7 +37,7 @@
   </style>
 </head>
 <body>
-  <img src="https://globopedia.github.io/buscador-partidos/logo_globopedia.png" alt="Logo Huracán" class="logo" />
+  <img src="https://globopedia.github.io/Artids/logo_globopedia.png" alt="Logo Huracán" class="logo" />
   <h1>📜 Técnicos</h1>
 
   <div style="text-align:center;">
@@ -49,7 +49,7 @@
 
   <script>
     const tecnicosURL = "https://globopedia.github.io/Ecnics/Ecnics.csv?v=" + Date.now();
-    const partidosURL = "https://globopedia.github.io/buscador-partidos/Encuentros_Huracan.csv?v=" + Date.now();
+    const partidosURL = "https://globopedia.github.io/Artids/Encuentros_Huracan.csv?v=" + Date.now();
 
     let tecnicos = [];
     let encuentros = [];
@@ -348,10 +348,10 @@
     function getEscudo(nombreClub) {
       if (!nombreClub) return "";
       try {
-        return "https://globopedia.github.io/buscador-partidos/escudos/" + encodeURIComponent(nombreClub.trim()) + ".png";
+        return "https://globopedia.github.io/Artids/escudos/" + encodeURIComponent(nombreClub.trim()) + ".png";
       } catch (err) {
         const fileName = nombreClub.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\./g, "").replace(/\s+/g, "") + ".png";
-        return "https://globopedia.github.io/buscador-partidos/escudos/" + fileName;
+        return "https://globopedia.github.io/Artids/escudos/" + fileName;
       }
     }
 
@@ -367,7 +367,7 @@
     function getEstadioImage(estadio) {
       if (!estadio) return "";
       const fileName = estadio.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\./g, "").replace(/\s+/g, "") + ".png";
-      return "https://globopedia.github.io/buscador-partidos/Estadios/" + fileName;
+      return "https://globopedia.github.io/Artids/Estadios/" + fileName;
     }
 
     function getTorneoImage(nombreTorneo) {
@@ -389,7 +389,7 @@
       ];
       for (const t of torneosDisponibles) {
         if (texto.includes(t.toLowerCase())) {
-          return `<img src="https://globopedia.github.io/buscador-partidos/Torneos/${encodeURIComponent(t)}.png" style="max-height:40px; display:block; margin:4px auto;">`;
+          return `<img src="https://globopedia.github.io/Artids/Torneos/${encodeURIComponent(t)}.png" style="max-height:40px; display:block; margin:4px auto;">`;
         }
       }
       return "";
