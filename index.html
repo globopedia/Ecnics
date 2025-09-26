@@ -57,7 +57,7 @@
     const norm = (t) => (t || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
     const cap = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : s;
 
-    const ORDEN_COMPETENCIAS = ["Apertura 2007","Clausura 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clasura 2010","Apertura 2010","Clasura 2011","Desempate Descenso 2011","Temporada 2016","Temporada 2016/17","Temporada 2017/18","Temporada 2018/19","Temporada 2019/20","Temporada 2021","Temporada 2022","Temporada 2023","Temporada 2024","Temporada 2025","Amistosos","Otros"];
+    const ORDEN_COMPETENCIAS = ["Apertura 2007","Clausura 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clasura 2010","Apertura 2010","Clasura 2011","Desempate Descenso 2011","Amistosos","Otros"];
     const CONDICIONES = ["Local","Neutral","Visitante"];
     const SITUACIONES = ["Victoria","Empate","Derrota"];
 
@@ -65,18 +65,18 @@
       const t = norm(torneo || "");
       if (t.includes("apertura 2007")) return "Apertura 2007";
       if (t.includes("clausura 2008")) return "Clausura 2008";
-      if (t.includes("apertura 2008") return "Apertura 2008";
+      if (t.includes("apertura 2008")) return "Apertura 2008";
       if (t.includes("clausura 2009")) return "Clausura 2009";
       if (t.includes("apertura 2009")) return "Apertura 2009";
       if (t.includes("clausura 2010")) return "Clausura 2010";
-      if (t.includes("apertura 2010") return "Apertura 2010";
+      if (t.includes("apertura 2010")) return "Apertura 2010";
       if (t.includes("clausura 2011")) return "Clausura 2011";
       if (t.includes("campeonato 10-11")) return "Desempate Descenso 2011";
-      if (t.includes("nacional b 11-12") return "Campeonato B Nacional 2011/12";
+      if (t.includes("nacional b 11-12")) return "Campeonato B Nacional 2011/12";
       if (t.includes("copa argentina 11-12")) return "Copa Argentina 2011/12";
-      if (t.includes("nacional b 12-13") return "Campeonato B Nacional 2012/13";
+      if (t.includes("nacional b 12-13")) return "Campeonato B Nacional 2012/13";
       if (t.includes("copa argentina 12-13")) return "Copa Argentina 2012/13";
-      if (t.includes("nacional b 13-14") return "Campeonato B Nacional 2013/14";
+      if (t.includes("nacional b 13-14")) return "Campeonato B Nacional 2013/14";
       if (t.includes("copa argentina 13-14")) return "Copa Argentina 2013/14";
       if (t.includes("nacional b 2014")) return "Desempate Ascenso 2013/14";
       if (t.includes("nacional b 2014")) return "Campeonato B Nacional 2014";
