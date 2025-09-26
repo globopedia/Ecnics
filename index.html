@@ -57,20 +57,30 @@
     const norm = (t) => (t || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
     const cap = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : s;
 
-    const ORDEN_COMPETENCIAS = ["Temporada 2007/08","Temporada 2008/09","Temporada 2009/10","Temporada 2010/11","Temporada 2011/12","Temporada 2012/13","Temporada 2013/14","Temporada 2014","Temporada 2015","Temporada 2016","Temporada 2016/17","Temporada 2017/18","Temporada 2018/19","Temporada 2019/20","Temporada 2021","Temporada 2022","Temporada 2023","Temporada 2024","Temporada 2025","Amistosos","Otros"];
+    const ORDEN_COMPETENCIAS = ["Apertura 2007","Clausura 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clasura 2010","Apertura 2010","Clasura 2011","Desempate Descenso 2011","Temporada 2016","Temporada 2016/17","Temporada 2017/18","Temporada 2018/19","Temporada 2019/20","Temporada 2021","Temporada 2022","Temporada 2023","Temporada 2024","Temporada 2025","Amistosos","Otros"];
     const CONDICIONES = ["Local","Neutral","Visitante"];
     const SITUACIONES = ["Victoria","Empate","Derrota"];
 
     function bucketCompetencia(torneo) {
       const t = norm(torneo || "");
-      if (t.includes("apertura 2007") || t.includes("clausura 2008")) return "Temporada 2007/08";
-      if (t.includes("apertura 2008") || t.includes("clausura 2009")) return "Temporada 2008/09";
-      if (t.includes("apertura 2009") || t.includes("clausura 2010")) return "Temporada 2009/10";
-      if (t.includes("apertura 2010") || t.includes("clausura 2011") || t.includes("campeonato 10-11")) return "Temporada 2010/11";
-      if (t.includes("nacional b 11-12") || t.includes("copa argentina 11-12")) return "Temporada 2011/12";
-      if (t.includes("nacional b 12-13") || t.includes("copa argentina 12-13")) return "Temporada 2012/13";
-      if (t.includes("nacional b 13-14") || t.includes("copa argentina 13-14")) return "Temporada 2013/14";
-      if (t.includes("nacional b 2014")) return "Temporada 2014";
+      if (t.includes("apertura 2007")) return "Apertura 2007";
+      if (t.includes("clausura 2008")) return "Clausura 2008";
+      if (t.includes("apertura 2008") return "Apertura 2008";
+      if (t.includes("clausura 2009")) return "Clausura 2009";
+      if (t.includes("apertura 2009")) return "Apertura 2009";
+      if (t.includes("clausura 2010")) return "Clausura 2010";
+      if (t.includes("apertura 2010") return "Apertura 2010";
+      if (t.includes("clausura 2011")) return "Clausura 2011";
+      if (t.includes("campeonato 10-11")) return "Desempate Descenso 2011";
+      if (t.includes("nacional b 11-12") return "Campeonato B Nacional 2011/12";
+      if (t.includes("copa argentina 11-12")) return "Copa Argentina 2011/12";
+      if (t.includes("nacional b 12-13") return "Campeonato B Nacional 2012/13";
+      if (t.includes("copa argentina 12-13")) return "Copa Argentina 2012/13";
+      if (t.includes("nacional b 13-14") return "Campeonato B Nacional 2013/14";
+      if (t.includes("copa argentina 13-14")) return "Copa Argentina 2013/14";
+      if (t.includes("nacional b 2014")) return "Desempate Ascenso 2013/14";
+      if (t.includes("nacional b 2014")) return "Campeonato B Nacional 2014";
+      if (t.includes("nacional b 2014")) return "Desempate Ascenso 2014";
       if (t.includes("campeonato 2015") || t.includes("copa argentina 2015") || t.includes("supercopa 2015") || t.includes("libertadores 2015") || t.includes("sudamericana 2015")) return "Temporada 2015";
       if (t.includes("campeonato 2016") || t.includes("copa argentina 2016") || t.includes("libertadores 2016")) return "Temporada 2016";
       if (t.includes("campeonato 16-17") || t.includes("copa argentina 16-17") || t.includes("sudamericana 2017")) return "Temporada 2016/17";
@@ -96,10 +106,11 @@
         tecnico: (c["Técnico"] ?? "").toString().trim(),
         nombre: (c.Nombre ?? "").toString().trim(),
         nacimiento: (c.Nacimiento ?? "").toString().trim(),
-        lugar: (c.Lugar ?? "").toString().trim(),
-        trayectoria: (c.Trayectoria ?? "").toString().trim(),
+        lugar nacimiento: (c.Lugar ?? "").toString().trim(),
         muerte: (c.Muerte ?? "").toString().trim(),
+        lugar muerte: (c.Lugar ?? "").toString().trim(),
         biografía: (c.Biografía ?? "").toString().trim(),
+        trayectoria: (c.Trayectoria ?? "").toString().trim(),
         foto: (c.Foto ?? "").toString().trim()
       }));
 
@@ -153,10 +164,11 @@
         </div>
         <p><b>Nombre completo:</b> ${tecnico.nombre}</p>
         <p><b>Nacimiento:</b> ${tecnico.nacimiento}</p>
-        <p><b>Lugar:</b> ${tecnico.lugar}</p>
-        <p><b>Trayectoria:</b> ${tecnico.trayectoria}</p>
+        <p><b>, en</b> ${tecnico.lugar nacimiento}</p>
         <p><b>Muerte:</b> ${tecnico.muerte}</p>
+        <p><b>, en</b> ${tecnico.lugar muerte}</p>
         <p><b>Biografía:</b> ${tecnico.biografía}</p>
+        <p><b>Trayectoria:</b> ${tecnico.trayectoria}</p>
         <div class="stats">
           <h3 style="color:#FF0000;">📊 Partidos dirigidos en Huracán</h3>
           ${renderEstadisticas(tecnico.tecnico)}
