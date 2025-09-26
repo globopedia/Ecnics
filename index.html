@@ -57,7 +57,18 @@
     const norm = (t) => (t || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
     const cap = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : s;
 
-    const ORDEN_COMPETENCIAS = ["Apertura 2007","Clausura 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clasura 2010","Apertura 2010","Clasura 2011","Desempate Descenso 2011","B Nacional 2011/12","Copa Argentina 2011/12","B Nacional 2012/13","B Nacional 2013/14","B Nacional 2014","Campeonato 2015","Campeonato 2016","Campeonato 2016/17","Superliga 2017/18","Superliga 2018/19","Superliga 2019/20","Copa de Superliga 2020","Copa Maradona 2020","Copa-LPF 2021","Torneo-LPF 2021","Copa-LPF 2022","Torneo-LPF 2022","Torneo-LPF 2023","Copa-LPF 2023","Copa-LPF 2024","Torneo-LPF 2024","Apertura-LPF 2025","Clausura-LPF 2025","Amistosos","Otros"];
+    const ORDEN_COMPETENCIAS = ["Apertura 2007","Clausura 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clausura 2010","Apertura 2010",
+"Clausura 2011","Desempate Descenso 2011","Campeonato B Nacional 2011/12","Copa Argentina 2012",
+"Campeonato B Nacional 2012/13","Copa Argentina 2013","Campeonato B Nacional 2013/14","Copa Argentina 2014",
+"Desempate 3° Puesto NB 2013/14","Campeonato B Nacional 2014","Desempate 5° Puesto NB 2014",
+"Copa Libertadores 2015","Campeonato 2015","Supercopa 2015","Copa Argentina 2015","Copa Sudamericana 2015",
+"Copa Libertadores 2016","Campeonato 2016","Copa Argentina 2016","Campeonato 2016/17","Copa Sudamericana 2017",
+"Copa Argentina 2017","Superliga 2017/18","Copa Argentina 2018","Superliga 2018/19","Copa Libertadores 2019",
+"Copa Superliga 2019","Copa Argentina 2019","Superliga 2019/20","Copa Sudamericana 2020","Copa Superliga 2020",
+"Copa Maradona 2020","Copa-LPF 2021","Copa Argentina 2020","Torneo-LPF 2021","Copa-LPF 2022",
+"Copa Argentina 2022","Torneo-LPF 2022","Torneo-LPF 2023","Copa Argentina 2023","Copa Libertadores 2023",
+"Copa Sudamericana 2023","Copa-LPF 2023","Copa-LPF 2024","Copa Argentina 2024","Torneo-LPF 2024",
+"Apertura-LPF 2025","Copa Argentina 2025","Copa Sudamericana 2025","Clausura-LPF 2025","Amistosos","Otros"];
     const CONDICIONES = ["Local","Neutral","Visitante"];
     const SITUACIONES = ["Victoria","Empate","Derrota"];
 
