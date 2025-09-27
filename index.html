@@ -203,10 +203,8 @@
           <h2>${tecnico.tecnico}</h2>
         </div>
         <p><b>Nombre completo:</b> ${tecnico.nombre}</p>
-        <p><b>Nacimiento:</b> ${tecnico.nacimiento}</p>
-        <p><b>, en</b> ${tecnico.lugarnacimiento}</p>
-        <p><b>Muerte:</b> ${tecnico.muerte}</p>
-        <p><b>, en</b> ${tecnico.lugarmuerte}</p>
+        <p><b>Nacimiento:</b> ${tecnico.nacimiento}, en ${tecnico.lugarnacimiento}</p>
+        <p><b>Muerte:</b> ${tecnico.muerte}, en ${tecnico.lugarmuerte}</p>
         <p><b>Biografía:</b> ${tecnico.biografía}</p>
         <p><b>Trayectoria:</b> ${tecnico.trayectoria}</p>
         <div class="stats">
@@ -299,7 +297,7 @@
                   <div>${ p.Estadio && getEstadioImage(p.Estadio) ? `<img src="${getEstadioImage(p.Estadio)}" style="max-height:40px;">` : "" }</div>
                   <div><b>${p.Club}:</b> ${p.Rival}</div>
                   <div><b>Huracán:</b> ${p.Huracán}</div>
-                  ${ p.Foto ? `<div style="margin:6px 0;"><img src="${p.Foto}" alt="Incidencias" style="max-width:100%;border-radius:8px;"></div>` : "" }
+                  ${ p.Foto ? `<div style="margin:6px 0;"><img src="${p.Foto}" alt="Incidencias" style="max-width:200px;border-radius:8px;"></div>` : "" }
                   <div>${renderIncidencias(p.Incidencias)}</div>
                   </div>
               `;
