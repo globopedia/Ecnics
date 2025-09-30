@@ -180,7 +180,7 @@
         if (a.tecnico) {
           const opt = document.createElement("option");
           opt.value = a.tecnico;
-          opt.textContent = InvertirTecnico(a.tecnico);
+          opt.textContent = InvertirNombre(a.tecnico);
           sel.appendChild(opt);
         }
       });
@@ -395,6 +395,26 @@
       }
       return "";
     }
+
+    function InvertirNombre(nombre) {
+  const partes = nombre.trim().split(" ");
+  if (partes.length < 2) return nombre;
+
+  // Tomar las últimas 2 palabras como posibles apellidos
+  const posiblesApellidos = partes.slice(-2).join(" ");
+  const unApellido = partes[partes.length - 1];
+
+  // Regla: si la penúltima palabra empieza con mayúscula y no termina en "." → es parte del apellido
+  if (/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+$/.test(partes[partes.length - 2])) {
+    const apellidos = posiblesApellidos;
+    const nombres = partes.slice(0, partes.length - 2).join(" ");
+    return apellidos + ", " + nombres;
+  } else {
+    const apellidos = unApellido;
+    const nombres = partes.slice(0, partes.length - 1).join(" ");
+    return apellidos + ", " + nombres;
+  }
+}
   </script>
 </body>
 </html>
