@@ -396,21 +396,28 @@
       return "";
     }
 
-    function InvertirNombre(nombre) {
+  function InvertirNombre(nombre) {
   const partes = nombre.trim().split(" ");
   if (partes.length < 2) return nombre;
 
-  // Tomar las últimas 2 palabras como posibles apellidos
-  const posiblesApellidos = partes.slice(-2).join(" ");
-  const unApellido = partes[partes.length - 1];
+  if (partes.length === 2) {
+    // Caso típico: Nombre + Apellido
+    const [nombre1, apellido] = partes;
+    return apellido + ", " + nombre1;
+  }
 
-  // Regla: si la penúltima palabra empieza con mayúscula y no termina en "." → es parte del apellido
-  if (/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+$/.test(partes[partes.length - 2])) {
-    const apellidos = posiblesApellidos;
+  // Caso de 3 o más palabras
+  const penultima = partes[partes.length - 2];
+  const ultima = partes[partes.length - 1];
+
+  // Si la penúltima no es inicial (ej: "M.") y parece apellido → tomamos 2 apellidos
+  if (/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+$/.test(penultima)) {
+    const apellidos = penultima + " " + ultima;
     const nombres = partes.slice(0, partes.length - 2).join(" ");
     return apellidos + ", " + nombres;
   } else {
-    const apellidos = unApellido;
+    // Si no, solo el último es apellido
+    const apellidos = ultima;
     const nombres = partes.slice(0, partes.length - 1).join(" ");
     return apellidos + ", " + nombres;
   }
