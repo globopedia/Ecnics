@@ -179,8 +179,8 @@
       tecnicos.forEach(a => {
         if (a.tecnico) {
           const opt = document.createElement("option");
-          opt.value = a.tecnico;
-          opt.textContent = InvertirNombre(a.tecnico);
+          opt.value = a.id; // usa el ID (apellido) para filtrar
+          opt.textContent = InvertirNombre(a.tecnico); // sigue mostrando “Apellido, Nombre”
           sel.appendChild(opt);
         }
       });
@@ -189,7 +189,7 @@
 
     function mostrarTecnico() {
       const tecnicoId = document.getElementById("tecnicoSelect").value;
-      const tecnico = tecnicos.find(a => a.tecnico === tecnicoId);
+      const tecnico = tecnicos.find(a => a.id === tecnicoId);
       if (!tecnico) {
         document.getElementById("tecnicoInfo").style.display = "none";
         return;
@@ -209,7 +209,7 @@
         <p><b>Trayectoria:</b> ${tecnico.trayectoria}</p>
         <div class="stats">
           <h3 style="color:#FF0000;">📊 Partidos dirigidos en Huracán</h3>
-          ${renderEstadisticas(tecnico.tecnico)}
+          ${renderEstadisticas(tecnico.id)}
         </div>
       `;
     }
