@@ -203,6 +203,9 @@
         <div class="club-header">
           ${tecnico.foto ? `<img src="${tecnico.foto}" alt="${tecnico.tecnico}" style="width:105px;height:140px;object-fit:cover;border-radius:8px;">` : ""}
           <h2>${tecnico.tecnico}</h2>
+<p style="margin:4px 0 0 0; font-size:16px; color:#444;">
+  ${getResumenTecnico(tecnico.id)}
+</p>
         </div>
         <p><b>Nombre completo:</b> ${tecnico.nombre}</p>
         <p><b>Nacimiento:</b> ${tecnico.nacimiento}, en ${tecnico.lugarnacimiento}</p>
@@ -215,7 +218,51 @@
         </div>
       `;
     }
+function getResumenTecnico(nombreTecnico) {
+  const delTecnico = encuentros.filter(p => norm(p.Técnico) === norm(nombreTecnico));
+  if (!delTecnico.length) return "";
 
+  const totalPartidos = delTecnico.length;
+
+  const victorias = delTecnico.filter(p => norm(p.Situación) === "victoria").length;
+  const empates = delTecnico.filter(p => norm(p.Situación) === "empate").length;
+  const derrotas = delTecnico.filter(p => norm(p.Situación) === "derrota").length;
+
+  const efectividad = ((victorias * 3 + empates) * 100 / ((victorias + empates + derrotas) * 3)).toFixed(1);
+
+  // Color segun efectividad
+  let color;
+  if (efectividad < 30) color = "#e74c3c";        // rojo
+  else if (efectividad < 45) color = "#f1c40f";   // amarillo
+  else color = "#2ecc71";                         // verde
+
+  // Fechas
+  const fechasOrdenadas = delTecnico
+    .map(p => p.Fecha)
+    .map(f => {
+      const [d, m, a] = f.split("/");
+      return new Date(`${a}-${m}-${d}`);
+    })
+    .sort((a, b) => a - b);
+
+  const primerAnio = fechasOrdenadas[0].getFullYear();
+  const ultimoAnio = fechasOrdenadas[fechasOrdenadas.length - 1].getFullYear();
+
+  // Cuadro de efectividad
+  const badge = `<span style="
+    background-color:${color};
+    color:white;
+    padding:3px 6px;
+    border-radius:6px;
+    font-weight:bold;
+    font-size:14px;
+    display:inline-block;
+    min-width:55px;
+    text-align:center;
+  ">${efectividad}%</span>`;
+
+  return `${totalPartidos} ${totalPartidos === 1 ? "partido" : "partidos"} – ${badge} de efectividad (${primerAnio}-${ultimoAnio})`;
+}
     function renderEstadisticas(nombreTecnico) {
       const delTecnico = encuentros.filter(p => norm(p.Técnico) === norm(nombreTecnico));
       const agg = {};
