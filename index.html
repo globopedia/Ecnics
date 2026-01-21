@@ -164,6 +164,8 @@
 
       const partidos1 = Papa.parse(csvPartidos1, { header:true, skipEmptyLines:true }).data;
 const partidos2 = Papa.parse(csvPartidos2, { header:true, skipEmptyLines:true }).data;
+
+  encuentros = [...partidos1, ...partidos2].map(p => ({
         Fecha: (p.Fecha ?? "").trim(),
         Técnico: (p.Técnico ?? "").trim(),
         Condición: (p.Condición ?? "").trim(),
