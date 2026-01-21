@@ -147,7 +147,7 @@
   fetch(partidosURL).then(r => { if(!r.ok) throw new Error("Partidos CSV 1 no disponible"); return r.text(); }),
   fetch(partidosURL2).then(r => { if(!r.ok) throw new Error("Partidos CSV 2 no disponible"); return r.text(); })
 ])
-.then(([csvTécnicos, csvPartidos1, csvPartidos2]) => {
+.then(([csvEcnics, csvPartidos1, csvPartidos2]) => {
   
       tecnicos = Papa.parse(csvEcnics, { header:true, skipEmptyLines:true }).data.map(c => ({
         id: (c.ID ?? "").toString().trim(),
