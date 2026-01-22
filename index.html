@@ -58,7 +58,7 @@
     const norm = (t) => (t || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
     const cap = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : s;
 
-    const ORDEN_COMPETENCIAS = ["Apertura BN 2006","Clausura BN 2007","2° Puesto B Nacional 2007","Promoción 2007","Gira por México 2007","Apertura 2007","Clausura 2008","Copa Cafam 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clausura 2010","Apertura 2010",
+    const ORDEN_COMPETENCIAS = ["Trofeo Cartagena de Indias 1983","Amistosos 1983","Apertura BN 2006","Clausura BN 2007","2° Puesto B Nacional 2007","Promoción 2007","Gira por México 2007","Apertura 2007","Clausura 2008","Copa Cafam 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clausura 2010","Apertura 2010",
 "Clausura 2011","Desempate Descenso 2011","Campeonato B Nacional 2011/12","Copa Argentina 2012",
 "Campeonato B Nacional 2012/13","Copa Argentina 2013","Campeonato B Nacional 2013/14","Desempate 3° Puesto BN 2013/14","Copa Argentina 2014",
 "Desempate 3° Puesto NB 2013/14","Campeonato B Nacional 2014","Desempate 5° Puesto NB 2014",
@@ -75,6 +75,8 @@
 
     function bucketCompetencia(torneo) {
       const t = norm(torneo || "");
+      if (t.includes("cartagena de indias 1983")) return "Trofeo Cartagena de Indias 1983";
+      if (t.includes("amistoso 1983")) return "Amistosos 1983";
       if (t.includes("apertura nacional b 2006")) return "Apertura BN 2006";
       if (t.includes("clausura nacional b 2007")) return "Clausura BN 2007";
       if (t.includes("2° puesto nacional b 2007")) return "2° Puesto B Nacional 2007";
