@@ -148,8 +148,8 @@
     Promise.all([
   fetch(tecnicosURL).then(r => { if(!r.ok) throw new Error("Técnicos CSV no disponible"); return r.text(); }),
   fetch(partidosURL).then(r => { if(!r.ok) throw new Error("Partidos CSV 1 no disponible"); return r.text(); }),
-  fetch(partidosURL2).then(r => { if(!r.ok) throw new Error("Partidos CSV 1 no disponible"); return r.text(); }),
-  fetch(partidosURL3).then(r => { if(!r.ok) throw new Error("Partidos CSV 2 no disponible"); return r.text(); })
+  fetch(partidosURL2).then(r => { if(!r.ok) throw new Error("Partidos CSV 2 no disponible"); return r.text(); }),
+  fetch(partidosURL3).then(r => { if(!r.ok) throw new Error("Partidos CSV 3 no disponible"); return r.text(); })
 ])
 .then(([csvEcnics, csvPartidos1, csvPartidos2, csvPartidos3]) => {
   
