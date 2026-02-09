@@ -59,17 +59,14 @@
     const norm = (t) => (t || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
     const cap = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : s;
 
-    const ORDEN_COMPETENCIAS = ["Trofeo Cartagena de Indias 1983","Amistosos 1983","Apertura BN 2006","Clausura BN 2007","2° Puesto B Nacional 2007","Promoción 2007","Gira por México 2007","Apertura 2007","Clausura 2008","Copa Cafam 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clausura 2010","Apertura 2010",
-"Clausura 2011","Desempate Descenso 2011","Campeonato B Nacional 2011/12","Copa Argentina 2012",
-"Campeonato B Nacional 2012/13","Copa Argentina 2013","Campeonato B Nacional 2013/14","Desempate 3° Puesto BN 2013/14","Copa Argentina 2014",
-"Desempate 3° Puesto NB 2013/14","Campeonato B Nacional 2014","Desempate 5° Puesto NB 2014",
-"Copa Libertadores 2015","Campeonato 2015","Supercopa 2015","Copa Argentina 2015","Copa Sudamericana 2015",
-"Copa Libertadores 2016","Campeonato 2016","Copa Argentina 2016","Campeonato 2016/17","Copa Sudamericana 2017",
-"Copa Argentina 2017","Superliga 2017/18","Copa Argentina 2018","Superliga 2018/19","Copa Libertadores 2019",
-"Copa Superliga 2019","Copa Argentina 2019","Superliga 2019/20","Copa Sudamericana 2020","Copa Superliga 2020",
-"Copa Maradona 2020","Copa-LPF 2021","Copa Argentina 2020","Torneo-LPF 2021","Copa-LPF 2022",
-"Copa Argentina 2022","Torneo-LPF 2022","Torneo-LPF 2023","Copa Argentina 2023","Copa Libertadores 2023",
-"Copa Sudamericana 2023","Copa-LPF 2023","Copa-LPF 2024","Copa Argentina 2024","Torneo-LPF 2024",
+    const ORDEN_COMPETENCIAS = ["Trofeo Cartagena de Indias 1983","Amistosos 1983","Nacional B 1986/87","Segundo Ascenso 1987","Nacional B 1987/88","Segundo Ascenso 1988","Nacional B 1988/89","Segundo Ascenso 1989","Nacional B 1989/90","Apertura 1991","Clausura 1992","Apertura 1992","Clausura 1993",
+"Apertura 1993","Clausura 1994","Apertura 1994","Clausura 1995","Apertura 1995","Clausura 1996","Apertura 1996","Clausura 1997","Apertura 1997","Clausura 1998","Apertura 1998","Clausura 1999","1°B Nacional 1999/2000","Apertura 2000","Clausura 2001","Apertura 2001","Clausura 2002","Apertura 2002","Clausura 2003","Apertura BN 2003","Clausura BN 2004","Apertura BN 2004","Clausura BN 2005","Apertura BN 2005","Clausura BN 2006",
+"Apertura BN 2006","Clausura BN 2007","2° Puesto B Nacional 2007","Promoción 2007","Gira por México 2007","Apertura 2007","Clausura 2008","Copa Cafam 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clausura 2010","Apertura 2010",
+"Clausura 2011","Desempate Descenso 2011","Campeonato B Nacional 2011/12","Copa Argentina 2012","Campeonato B Nacional 2012/13","Copa Argentina 2013","Campeonato B Nacional 2013/14","Desempate 3° Puesto BN 2013/14","Copa Argentina 2014",
+"Desempate 3° Puesto NB 2013/14","Campeonato B Nacional 2014","Desempate 5° Puesto NB 2014","Copa Libertadores 2015","Campeonato 2015","Supercopa 2015","Copa Argentina 2015","Copa Sudamericana 2015",
+"Copa Libertadores 2016","Campeonato 2016","Copa Argentina 2016","Campeonato 2016/17","Copa Sudamericana 2017","Copa Argentina 2017","Superliga 2017/18","Copa Argentina 2018","Superliga 2018/19","Copa Libertadores 2019",
+"Copa Superliga 2019","Copa Argentina 2019","Superliga 2019/20","Copa Sudamericana 2020","Copa Superliga 2020","Copa Maradona 2020","Copa-LPF 2021","Copa Argentina 2020","Torneo-LPF 2021","Copa-LPF 2022",
+"Copa Argentina 2022","Torneo-LPF 2022","Torneo-LPF 2023","Copa Argentina 2023","Copa Libertadores 2023","Copa Sudamericana 2023","Copa-LPF 2023","Copa-LPF 2024","Copa Argentina 2024","Torneo-LPF 2024",
 "Apertura-LPF 2025","Copa Argentina 2025","Copa Sudamericana 2025","Clausura-LPF 2025","Amistosos","Otros"];
     const CONDICIONES = ["Local","Neutral","Visitante"];
     const SITUACIONES = ["Victoria","Empate","Derrota"];
@@ -77,10 +74,47 @@
     function bucketCompetencia(torneo) {
       const t = norm(torneo || "");
       if (t.includes("cartagena de indias 1983")) return "Trofeo Cartagena de Indias 1983";
+      if (t.includes("nacional b 1986/87")) return "Nacional B 1986/87";
+      if (t.includes("octogonal b 1987")) return "Segundo Ascenso 1987";
+      if (t.includes("nacional b 1987/88")) return "Nacional B 1987/88";
+      if (t.includes("dodecagonal b 1988")) return "Segundo Ascenso 1988";
+      if (t.includes("nacional b 1988/89")) return "Nacional B 1988/89";
+      if (t.includes("dodecagonal b 1989")) return "Segundo Ascenso 1989";
+      if (t.includes("nacional b 1989/90")) return "Nacional B 1989/90";
+      if (t.includes("apertura 1991")) return "Apertura 1991";
+      if (t.includes("clausura 1992")) return "Clausura 1992";
+      if (t.includes("apertura 1992")) return "Apertura 1992";
+      if (t.includes("clausura 1993")) return "Clausura 1993";
+      if (t.includes("apertura 1993")) return "Apertura 1993";
+      if (t.includes("clausura 1994")) return "Clausura 1994";
+      if (t.includes("apertura 1994")) return "Apertura 1994";
+      if (t.includes("clausura 1995")) return "Clausura 1995";
+      if (t.includes("apertura 1995")) return "Apertura 1995";
+      if (t.includes("clausura 1996")) return "Clausura 1996";
+      if (t.includes("apertura 1996")) return "Apertura 1996";
+      if (t.includes("clausura 1997")) return "Clausura 1997";
+      if (t.includes("apertura 1997")) return "Apertura 1997";
+      if (t.includes("clausura 1998")) return "Clausura 1998";
+      if (t.includes("apertura 1998")) return "Apertura 1998";
+      if (t.includes("clausura 1999")) return "Clausura 1999";
+      if (t.includes("nacional b 1999-2000")) return "1°B Nacional 1999/2000";
       if (t.includes("amistoso 1983")) return "Amistosos 1983";
+      if (t.includes("apertura 2000")) return "Apertura 2000";
+      if (t.includes("clausura 2001")) return "Clausura 2001";
+      if (t.includes("apertura 2001")) return "Apertura 2001";
+      if (t.includes("clausura 2002")) return "Clausura 2002";
+      if (t.includes("apertura 2002")) return "Apertura 2002";
+      if (t.includes("clausura 2003")) return "Clausura 2003";
+      if (t.includes("apertura nacional b 2003")) return "Apertura BN 2003";
+      if (t.includes("clausura nacional b 2004")) return "Clausura BN 2004";
+      if (t.includes("apertura nacional b 2004")) return "Apertura BN 2004";
+      if (t.includes("clausura nacional b 2005")) return "Clausura BN 2005";
+      if (t.includes("apertura nacional b 2005")) return "Apertura BN 2005";
+      if (t.includes("clausura nacional b 2006")) return "Clausura BN 2006";
+      if (t.includes("promocion 2006")) return "Promoción 2006";
       if (t.includes("apertura nacional b 2006")) return "Apertura BN 2006";
       if (t.includes("clausura nacional b 2007")) return "Clausura BN 2007";
-      if (t.includes("2° puesto nacional b 2007")) return "2° Puesto B Nacional 2007";
+      if (t.includes("2° puesto nacional b 2007")) return "Segundo Ascenso 2007";
       if (t.includes("promocion 2007")) return "Promoción 2007";
       if (t.includes("mexico 2007")) return "Gira por México 2007";
       if (t.includes("apertura 2007")) return "Apertura 2007";
