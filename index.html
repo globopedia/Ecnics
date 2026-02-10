@@ -60,8 +60,8 @@
     const cap = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : s;
 
     const ORDEN_COMPETENCIAS = ["Trofeo Cartagena de Indias 1983","Amistosos 1983","Nacional B 1986/87","Segundo Ascenso 1987","Nacional B 1987/88","Segundo Ascenso 1988","Nacional B 1988/89","Segundo Ascenso 1989","Nacional B 1989/90","Campeonato 1990/91","Apertura 1991","Clausura 1992","Apertura 1992","Clausura 1993",
-"Apertura 1993","Clausura 1994","Apertura 1994","Clausura 1995","Apertura 1995","Clausura 1996","Apertura 1996","Clausura 1997","Apertura 1997","Clausura 1998","Apertura 1998","Clausura 1999","1°B Nacional 1999/2000","Apertura 2000","Clausura 2001","Apertura 2001","Clausura 2002","Apertura 2002","Clausura 2003","Apertura BN 2003","Clausura BN 2004","Apertura BN 2004","Clausura BN 2005","Apertura BN 2005","Clausura BN 2006",
-"Apertura BN 2006","Clausura BN 2007","2° Puesto B Nacional 2007","Promoción 2007","Gira por México 2007","Apertura 2007","Clausura 2008","Copa Cafam 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clausura 2010","Apertura 2010",
+"Apertura 1993","Clausura 1994","Apertura 1994","Clausura 1995","Apertura 1995","Clausura 1996","Apertura 1996","Clausura 1997","Apertura 1997","Clausura 1998","Apertura 1998","Clausura 1999","1°B Nacional 1999/2000","Apertura 2000","Clausura 2001","Apertura 2001","Clausura 2002","Apertura 2002","Clausura 2003","Apertura BN 2003","Clausura BN 2004","Apertura BN 2004","Clausura BN 2005","Segundo Ascenso 2005","Promoción 2005","Apertura BN 2005","Clausura BN 2006",
+"Apertura BN 2006","Clausura BN 2007","Segundo Ascenso 2007","Promoción 2007","Gira por México 2007","Apertura 2007","Clausura 2008","Copa Cafam 2008","Apertura 2008","Clausura 2009","Apertura 2009","Clausura 2010","Apertura 2010",
 "Clausura 2011","Desempate Descenso 2011","Campeonato B Nacional 2011/12","Copa Argentina 2012","Campeonato B Nacional 2012/13","Copa Argentina 2013","Campeonato B Nacional 2013/14","Desempate 3° Puesto BN 2013/14","Copa Argentina 2014",
 "Desempate 3° Puesto NB 2013/14","Campeonato B Nacional 2014","Desempate 5° Puesto NB 2014","Copa Libertadores 2015","Campeonato 2015","Supercopa 2015","Copa Argentina 2015","Copa Sudamericana 2015",
 "Copa Libertadores 2016","Campeonato 2016","Copa Argentina 2016","Campeonato 2016/17","Copa Sudamericana 2017","Copa Argentina 2017","Superliga 2017/18","Copa Argentina 2018","Superliga 2018/19","Copa Libertadores 2019",
@@ -111,6 +111,8 @@
       if (t.includes("clausura nacional b 2004")) return "Clausura BN 2004";
       if (t.includes("apertura nacional b 2004")) return "Apertura BN 2004";
       if (t.includes("clausura nacional b 2005")) return "Clausura BN 2005";
+      if (t.includes("2° puesto nacional b 2005")) return "Segundo Ascenso 2005";
+      if (t.includes("promocion 2005")) return "Promoción 2005";
       if (t.includes("apertura nacional b 2005")) return "Apertura BN 2005";
       if (t.includes("clausura nacional b 2006")) return "Clausura BN 2006";
       if (t.includes("promocion 2006")) return "Promoción 2006";
