@@ -245,7 +245,7 @@
       const partidos1 = Papa.parse(csvPartidos1, { header:true, skipEmptyLines:true }).data;
       const partidos2 = Papa.parse(csvPartidos2, { header:true, skipEmptyLines:true }).data;
       const partidos3 = Papa.parse(csvPartidos3, { header:true, skipEmptyLines:true }).data;
-      const partidos4 = Papa.parse(csvPartidos3, { header:true, skipEmptyLines:true }).data;
+      const partidos4 = Papa.parse(csvPartidos4, { header:true, skipEmptyLines:true }).data;
 
   encuentros = [...partidos1, ...partidos2, ...partidos3,...partidos4].map(p => ({
         Fecha: (p.Fecha ?? "").trim(),
